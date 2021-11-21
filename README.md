@@ -26,7 +26,7 @@ The max depth of the dependency tree to be traversed (by default 2):
 
 The base URL that relative URLs constructed from `<groupId>`/`<artifactId>`/`<version>` are resolved against (by default `https://repo1.maven.org/maven2/`):
 
-    docker run --rm -v "$PWD/pom.xml":"/xml/pom.xml" atomgraph/pom2rdf -s:/xml/pom.xml mvn-base-uri=https://google.com/ > doap.rdf
+    docker run --rm -v "$PWD/pom.xml":"/xml/pom.xml" atomgraph/pom2rdf -s:/xml/pom.xml mvn-base-uri=https://oss.sonatype.org/content/repositories/releases/ > doap.rdf
 
 ## Notes
 
@@ -34,3 +34,7 @@ The base URL that relative URLs constructed from `<groupId>`/`<artifactId>`/`<ve
 Any other expressions will lead to invalid Maven POM URLs and therefore will not be dereferenced and the dependency metadata will not be embedded.
 
 Cyclical dependencies are broken by not embedding any occurrence other than the first.
+
+## Sample
+
+[Sample RDF output](sample/doap.rdf) generated from [LinkedDataHub's POM](https://github.com/AtomGraph/LinkedDataHub/blob/master/pom.xml) using `max-depth=1`.

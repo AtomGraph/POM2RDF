@@ -1,0 +1,500 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+   <doap:Project xmlns:doap="http://usefulinc.com/ns/doap#">
+      <doap:release>
+         <doap:Version>
+            <doap:revision>2.2.26-SNAPSHOT</doap:revision>
+         </doap:Version>
+      </doap:release>
+      <doap:name>AtomGraph LinkedDataHub</doap:name>
+      <doap:description>Data-driven Knowledge Graph management system</doap:description>
+      <doap:homepage rdf:resource="https://atomgraph.github.io/LinkedDataHub/"/>
+      <doap:maintainer>
+         <foaf:Person xmlns:foaf="http://xmlns.com/foaf/0.1/">
+            <foaf:mbox rdf:resource="mailto:martynas@atomgraph.com"/>
+            <foaf:workplaceHomepage rdf:resource="https://atomgraph.com"/>
+         </foaf:Person>
+      </doap:maintainer>
+      <doap:license>
+         <foaf:Document xmlns:foaf="http://xmlns.com/foaf/0.1/">
+            <doap:name>Apache License 2.0</doap:name>
+            <doap:homepage rdf:resource="http://www.apache.org/licenses/LICENSE-2.0.html"/>
+         </foaf:Document>
+      </doap:license>
+      <doap:repository>
+         <doap:GitRepository>
+            <doap:browse rdf:resource="https://github.com/AtomGraph/LinkedDataHub"/>
+            <doap:location rdf:resource="scm:git:git://github.com/AtomGraph/LinkedDataHub.git"/>
+         </doap:GitRepository>
+      </doap:repository>
+      <deps:build-requirement xmlns:deps="https://ontologi.es/doap-deps#">
+         <deps:Dependency>
+            <deps:on>
+               <doap:Project>
+                  <doap:release>
+                     <doap:Version>
+                        <doap:revision>4.0.3</doap:revision>
+                     </doap:Version>
+                  </doap:release>
+                  <doap:name>Jakarta Servlet</doap:name>
+                  <doap:homepage rdf:resource="https://projects.eclipse.org/projects/ee4j.servlet"/>
+                  <doap:maintainer>
+                     <foaf:Person xmlns:foaf="http://xmlns.com/foaf/0.1/">
+                        <doap:name>Yamini K B</doap:name>
+                        <foaf:workplaceHomepage rdf:resource="http://www.oracle.com/"/>
+                     </foaf:Person>
+                  </doap:maintainer>
+                  <doap:license>
+                     <foaf:Document xmlns:foaf="http://xmlns.com/foaf/0.1/">
+                        <doap:name>EPL 2.0</doap:name>
+                        <doap:homepage rdf:resource="http://www.eclipse.org/legal/epl-2.0"/>
+                     </foaf:Document>
+                  </doap:license>
+                  <doap:license>
+                     <foaf:Document xmlns:foaf="http://xmlns.com/foaf/0.1/">
+                        <doap:name>GPL2 w/ CPE</doap:name>
+                        <doap:homepage rdf:resource="https://www.gnu.org/software/classpath/license.html"/>
+                     </foaf:Document>
+                  </doap:license>
+                  <doap:repository>
+                     <doap:GitRepository>
+                        <doap:location rdf:resource="scm:git:https://github.com/eclipse-ee4j/servlet-api.git"/>
+                        <doap:browse rdf:resource="https://github.com/eclipse-ee4j/servlet-api"/>
+                     </doap:GitRepository>
+                  </doap:repository>
+               </doap:Project>
+            </deps:on>
+         </deps:Dependency>
+      </deps:build-requirement>
+      <deps:build-requirement xmlns:deps="https://ontologi.es/doap-deps#">
+         <deps:Dependency>
+            <deps:on>
+               <doap:Project>
+                  <doap:name>jersey-connectors-apache</doap:name>
+                  <doap:description>Jersey Client Transport via Apache</doap:description>
+                  <deps:build-requirement>
+                     <deps:Dependency>
+                        <deps:on rdf:datatype="https://ontologi.es/doap-deps#MvnId">org.apache.httpcomponents/httpclient</deps:on>
+                     </deps:Dependency>
+                  </deps:build-requirement>
+                  <deps:build-requirement>
+                     <deps:Dependency>
+                        <deps:on rdf:datatype="https://ontologi.es/doap-deps#MvnId">com.google.guava/guava</deps:on>
+                     </deps:Dependency>
+                  </deps:build-requirement>
+               </doap:Project>
+            </deps:on>
+         </deps:Dependency>
+      </deps:build-requirement>
+      <deps:build-requirement xmlns:deps="https://ontologi.es/doap-deps#">
+         <deps:Dependency>
+            <deps:on>
+               <doap:Project>
+                  <doap:name>jersey-media-multipart</doap:name>
+                  <doap:description>
+        Jersey Multipart entity providers support module.
+    </doap:description>
+                  <deps:build-requirement>
+                     <deps:Dependency>
+                        <deps:on rdf:datatype="https://ontologi.es/doap-deps#MvnId">junit/junit</deps:on>
+                     </deps:Dependency>
+                  </deps:build-requirement>
+               </doap:Project>
+            </deps:on>
+         </deps:Dependency>
+      </deps:build-requirement>
+      <deps:build-requirement xmlns:deps="https://ontologi.es/doap-deps#">
+         <deps:Dependency>
+            <deps:on>
+               <doap:Project>
+                  <doap:name>jersey-media-json-processing</doap:name>
+                  <doap:description>
+        Jersey JSON-P (JSR 353) entity providers support proxy module.
+    </doap:description>
+                  <deps:build-requirement>
+                     <deps:Dependency>
+                        <deps:on rdf:datatype="https://ontologi.es/doap-deps#MvnId">org.glassfish/jakarta.json</deps:on>
+                     </deps:Dependency>
+                  </deps:build-requirement>
+                  <deps:build-requirement>
+                     <deps:Dependency>
+                        <deps:on rdf:datatype="https://ontologi.es/doap-deps#MvnId">org.glassfish/jsonp-jaxrs</deps:on>
+                     </deps:Dependency>
+                  </deps:build-requirement>
+                  <deps:build-requirement>
+                     <deps:Dependency>
+                        <deps:on rdf:datatype="https://ontologi.es/doap-deps#MvnId">junit/junit</deps:on>
+                     </deps:Dependency>
+                  </deps:build-requirement>
+               </doap:Project>
+            </deps:on>
+         </deps:Dependency>
+      </deps:build-requirement>
+      <deps:build-requirement xmlns:deps="https://ontologi.es/doap-deps#">
+         <deps:Dependency>
+            <deps:on>
+               <doap:Project>
+                  <doap:name>XOM</doap:name>
+                  <doap:description>The XOM Dual Streaming/Tree API for Processing XML</doap:description>
+                  <doap:homepage rdf:resource="https://xom.nu"/>
+                  <doap:license>
+                     <foaf:Document xmlns:foaf="http://xmlns.com/foaf/0.1/">
+                        <doap:name>The GNU Lesser General Public License, Version 2.1</doap:name>
+                        <doap:homepage rdf:resource="http://www.gnu.org/licenses/lgpl-2.1.html"/>
+                     </foaf:Document>
+                  </doap:license>
+                  <doap:repository>
+                     <doap:GitRepository>
+                        <doap:browse rdf:resource="https://github.com/elharo/xom"/>
+                        <doap:location rdf:resource="scm:git:git://github.com/elharo/xom.git"/>
+                     </doap:GitRepository>
+                  </doap:repository>
+                  <doap:release>
+                     <doap:Version>
+                        <doap:revision>1.3.5</doap:revision>
+                     </doap:Version>
+                  </doap:release>
+                  <doap:maintainer>
+                     <foaf:Person xmlns:foaf="http://xmlns.com/foaf/0.1/">
+                        <doap:name>Elliotte Rusty Harold</doap:name>
+                        <foaf:mbox rdf:resource="mailto:elharo@ibiblio.org"/>
+                     </foaf:Person>
+                  </doap:maintainer>
+                  <deps:build-requirement>
+                     <deps:Dependency>
+                        <deps:on rdf:datatype="https://ontologi.es/doap-deps#MvnId">xml-apis/xml-apis 1.3.03</deps:on>
+                     </deps:Dependency>
+                  </deps:build-requirement>
+                  <deps:build-requirement>
+                     <deps:Dependency>
+                        <deps:on rdf:datatype="https://ontologi.es/doap-deps#MvnId">xerces/xercesImpl 2.8.0</deps:on>
+                     </deps:Dependency>
+                  </deps:build-requirement>
+                  <deps:build-requirement>
+                     <deps:Dependency>
+                        <deps:on rdf:datatype="https://ontologi.es/doap-deps#MvnId">xalan/xalan 2.7.2</deps:on>
+                     </deps:Dependency>
+                  </deps:build-requirement>
+               </doap:Project>
+            </deps:on>
+         </deps:Dependency>
+      </deps:build-requirement>
+      <deps:build-requirement xmlns:deps="https://ontologi.es/doap-deps#">
+         <deps:Dependency>
+            <deps:on>
+               <doap:Project>
+                  <doap:name>JavaMail API</doap:name>
+                  <deps:build-requirement>
+                     <deps:Dependency>
+                        <deps:on rdf:datatype="https://ontologi.es/doap-deps#MvnId">javax.activation/activation</deps:on>
+                     </deps:Dependency>
+                  </deps:build-requirement>
+                  <deps:build-requirement>
+                     <deps:Dependency>
+                        <deps:on rdf:datatype="https://ontologi.es/doap-deps#MvnId">junit/junit 4.12</deps:on>
+                     </deps:Dependency>
+                  </deps:build-requirement>
+               </doap:Project>
+            </deps:on>
+         </deps:Dependency>
+      </deps:build-requirement>
+      <deps:build-requirement xmlns:deps="https://ontologi.es/doap-deps#">
+         <deps:Dependency>
+            <deps:on>
+               <doap:Project>
+                  <doap:name>Guava: Google Core Libraries for Java</doap:name>
+                  <doap:description>
+    Guava is a suite of core and expanded libraries that include
+    utility classes, Google's collections, I/O classes, and
+    much more.
+  </doap:description>
+                  <deps:build-requirement>
+                     <deps:Dependency>
+                        <deps:on rdf:datatype="https://ontologi.es/doap-deps#MvnId">com.google.guava/failureaccess 1.0.1</deps:on>
+                     </deps:Dependency>
+                  </deps:build-requirement>
+                  <deps:build-requirement>
+                     <deps:Dependency>
+                        <deps:on rdf:datatype="https://ontologi.es/doap-deps#MvnId">com.google.guava/listenablefuture 9999.0-empty-to-avoid-conflict-with-guava</deps:on>
+                     </deps:Dependency>
+                  </deps:build-requirement>
+                  <deps:build-requirement>
+                     <deps:Dependency>
+                        <deps:on rdf:datatype="https://ontologi.es/doap-deps#MvnId">com.google.code.findbugs/jsr305</deps:on>
+                     </deps:Dependency>
+                  </deps:build-requirement>
+                  <deps:build-requirement>
+                     <deps:Dependency>
+                        <deps:on rdf:datatype="https://ontologi.es/doap-deps#MvnId">org.checkerframework/checker-qual</deps:on>
+                     </deps:Dependency>
+                  </deps:build-requirement>
+                  <deps:build-requirement>
+                     <deps:Dependency>
+                        <deps:on rdf:datatype="https://ontologi.es/doap-deps#MvnId">com.google.errorprone/error_prone_annotations</deps:on>
+                     </deps:Dependency>
+                  </deps:build-requirement>
+                  <deps:build-requirement>
+                     <deps:Dependency>
+                        <deps:on rdf:datatype="https://ontologi.es/doap-deps#MvnId">com.google.j2objc/j2objc-annotations</deps:on>
+                     </deps:Dependency>
+                  </deps:build-requirement>
+               </doap:Project>
+            </deps:on>
+         </deps:Dependency>
+      </deps:build-requirement>
+      <deps:build-requirement xmlns:deps="https://ontologi.es/doap-deps#">
+         <deps:Dependency>
+            <deps:on>
+               <doap:Project>
+                  <doap:release>
+                     <doap:Version>
+                        <doap:revision>2.1.1</doap:revision>
+                     </doap:Version>
+                  </doap:release>
+                  <doap:name>CSV2RDF</doap:name>
+                  <doap:description>Streaming, transforming CSV to RDF converter</doap:description>
+                  <doap:homepage rdf:resource="https://github.com/AtomGraph/CSV2RDF"/>
+                  <doap:maintainer>
+                     <foaf:Person xmlns:foaf="http://xmlns.com/foaf/0.1/">
+                        <foaf:mbox rdf:resource="mailto:martynas@atomgraph.com"/>
+                        <foaf:workplaceHomepage rdf:resource="https://atomgraph.com"/>
+                     </foaf:Person>
+                  </doap:maintainer>
+                  <doap:license>
+                     <foaf:Document xmlns:foaf="http://xmlns.com/foaf/0.1/">
+                        <doap:name>Apache License 2.0</doap:name>
+                        <doap:homepage rdf:resource="http://www.apache.org/licenses/LICENSE-2.0.html"/>
+                     </foaf:Document>
+                  </doap:license>
+                  <doap:repository>
+                     <doap:GitRepository>
+                        <doap:browse rdf:resource="https://github.com/AtomGraph/CSV2RDF"/>
+                        <doap:location rdf:resource="scm:git:git://github.com/AtomGraph/CSV2RDF.git"/>
+                     </doap:GitRepository>
+                  </doap:repository>
+                  <deps:build-requirement>
+                     <deps:Dependency>
+                        <deps:on rdf:datatype="https://ontologi.es/doap-deps#MvnId">org.slf4j/slf4j-simple 1.7.28</deps:on>
+                     </deps:Dependency>
+                  </deps:build-requirement>
+                  <deps:build-requirement>
+                     <deps:Dependency>
+                        <deps:on rdf:datatype="https://ontologi.es/doap-deps#MvnId">org.apache.jena/jena-arq 3.16.0</deps:on>
+                     </deps:Dependency>
+                  </deps:build-requirement>
+                  <deps:build-requirement>
+                     <deps:Dependency>
+                        <deps:on rdf:datatype="https://ontologi.es/doap-deps#MvnId">com.univocity/univocity-parsers 2.4.1</deps:on>
+                     </deps:Dependency>
+                  </deps:build-requirement>
+                  <deps:build-requirement>
+                     <deps:Dependency>
+                        <deps:on rdf:datatype="https://ontologi.es/doap-deps#MvnId">info.picocli/picocli 4.0.3</deps:on>
+                     </deps:Dependency>
+                  </deps:build-requirement>
+               </doap:Project>
+            </deps:on>
+         </deps:Dependency>
+      </deps:build-requirement>
+      <deps:build-requirement xmlns:deps="https://ontologi.es/doap-deps#">
+         <deps:Dependency>
+            <deps:on>
+               <doap:Project>
+                  <doap:release>
+                     <doap:Version>
+                        <doap:revision>3.11.0</doap:revision>
+                     </doap:Version>
+                  </doap:release>
+                  <doap:name>java jwt</doap:name>
+                  <doap:description>Java implementation of JSON Web Token (JWT)</doap:description>
+                  <doap:homepage rdf:resource="https://github.com/auth0/java-jwt"/>
+                  <doap:maintainer>
+                     <foaf:Person xmlns:foaf="http://xmlns.com/foaf/0.1/">
+                        <doap:name>Auth0</doap:name>
+                        <foaf:mbox rdf:resource="mailto:oss@auth0.com"/>
+                     </foaf:Person>
+                  </doap:maintainer>
+                  <doap:maintainer>
+                     <foaf:Person xmlns:foaf="http://xmlns.com/foaf/0.1/">
+                        <doap:name>Hernan Zalazar</doap:name>
+                        <foaf:mbox rdf:resource="mailto:hernan@auth0.com"/>
+                     </foaf:Person>
+                  </doap:maintainer>
+                  <doap:maintainer>
+                     <foaf:Person xmlns:foaf="http://xmlns.com/foaf/0.1/">
+                        <doap:name>Luciano Balmaceda</doap:name>
+                        <foaf:mbox rdf:resource="mailto:luciano.balmaceda@auth0.com"/>
+                     </foaf:Person>
+                  </doap:maintainer>
+                  <deps:build-requirement>
+                     <deps:Dependency>
+                        <deps:on rdf:datatype="https://ontologi.es/doap-deps#MvnId">com.fasterxml.jackson.core/jackson-databind 2.10.3</deps:on>
+                     </deps:Dependency>
+                  </deps:build-requirement>
+                  <deps:build-requirement>
+                     <deps:Dependency>
+                        <deps:on rdf:datatype="https://ontologi.es/doap-deps#MvnId">commons-codec/commons-codec 1.14</deps:on>
+                     </deps:Dependency>
+                  </deps:build-requirement>
+                  <doap:license>
+                     <foaf:Document xmlns:foaf="http://xmlns.com/foaf/0.1/">
+                        <doap:name>The MIT License (MIT)</doap:name>
+                        <doap:homepage rdf:resource="https://raw.githubusercontent.com/auth0/java-jwt/master/LICENSE"/>
+                     </foaf:Document>
+                  </doap:license>
+                  <doap:repository>
+                     <doap:GitRepository>
+                        <doap:location rdf:resource="scm:git@github.com:auth0/java-jwt.git"/>
+                        <doap:browse rdf:resource="https://github.com/auth0/java-jwt"/>
+                     </doap:GitRepository>
+                  </doap:repository>
+               </doap:Project>
+            </deps:on>
+         </deps:Dependency>
+      </deps:build-requirement>
+      <deps:build-requirement xmlns:deps="https://ontologi.es/doap-deps#">
+         <deps:Dependency>
+            <deps:on>
+               <doap:Project>
+                  <doap:release>
+                     <doap:Version>
+                        <doap:revision>0.5.9</doap:revision>
+                     </doap:Version>
+                  </doap:release>
+                  <doap:name>ExpiringMap</doap:name>
+                  <doap:description>A high performance thread-safe map that expires entries</doap:description>
+                  <doap:homepage rdf:resource="http://github.com/jhalterman/expiringmap/"/>
+                  <doap:license>
+                     <foaf:Document xmlns:foaf="http://xmlns.com/foaf/0.1/">
+                        <doap:name>Apache License, Version 2.0</doap:name>
+                        <doap:homepage rdf:resource="http://apache.org/licenses/LICENSE-2.0"/>
+                     </foaf:Document>
+                  </doap:license>
+                  <doap:maintainer>
+                     <foaf:Person xmlns:foaf="http://xmlns.com/foaf/0.1/">
+                        <doap:name>Jonathan Halterman</doap:name>
+                        <doap:homepage rdf:resource="http://jodah.net"/>
+                     </foaf:Person>
+                  </doap:maintainer>
+                  <doap:repository>
+                     <doap:GitRepository>
+                        <doap:location rdf:resource="scm:git:git@github.com:jhalterman/expiringmap.git"/>
+                        <doap:browse rdf:resource="scm:git:git@github.com:jhalterman/expiringmap.git"/>
+                     </doap:GitRepository>
+                  </doap:repository>
+                  <deps:build-requirement>
+                     <deps:Dependency>
+                        <deps:on rdf:datatype="https://ontologi.es/doap-deps#MvnId">org.testng/testng 6.8.8</deps:on>
+                     </deps:Dependency>
+                  </deps:build-requirement>
+                  <deps:build-requirement>
+                     <deps:Dependency>
+                        <deps:on rdf:datatype="https://ontologi.es/doap-deps#MvnId">net.jodah/concurrentunit 0.4.1</deps:on>
+                     </deps:Dependency>
+                  </deps:build-requirement>
+               </doap:Project>
+            </deps:on>
+         </deps:Dependency>
+      </deps:build-requirement>
+      <deps:build-requirement xmlns:deps="https://ontologi.es/doap-deps#">
+         <deps:Dependency>
+            <deps:on>
+               <doap:Project>
+                  <doap:name>jsoup Java HTML Parser</doap:name>
+                  <doap:release>
+                     <doap:Version>
+                        <doap:revision>1.14.3</doap:revision>
+                     </doap:Version>
+                  </doap:release>
+                  <doap:description>jsoup is a Java library for working with real-world HTML. It provides a very convenient API for fetching URLs and extracting and manipulating data, using the best of HTML5 DOM methods and CSS selectors. jsoup implements the WHATWG HTML5 specification, and parses HTML to the same DOM as modern browsers do.</doap:description>
+                  <doap:homepage rdf:resource="https://jsoup.org/"/>
+                  <doap:license>
+                     <foaf:Document xmlns:foaf="http://xmlns.com/foaf/0.1/">
+                        <doap:name>The MIT License</doap:name>
+                        <doap:homepage rdf:resource="https://jsoup.org/license"/>
+                     </foaf:Document>
+                  </doap:license>
+                  <doap:repository>
+                     <doap:GitRepository>
+                        <doap:browse rdf:resource="https://github.com/jhy/jsoup"/>
+                        <doap:location rdf:resource="scm:git:https://github.com/jhy/jsoup.git"/>
+                     </doap:GitRepository>
+                  </doap:repository>
+                  <deps:build-requirement>
+                     <deps:Dependency>
+                        <deps:on rdf:datatype="https://ontologi.es/doap-deps#MvnId">org.junit.jupiter/junit-jupiter 5.8.1</deps:on>
+                     </deps:Dependency>
+                  </deps:build-requirement>
+                  <deps:build-requirement>
+                     <deps:Dependency>
+                        <deps:on rdf:datatype="https://ontologi.es/doap-deps#MvnId">com.google.code.gson/gson 2.8.8</deps:on>
+                     </deps:Dependency>
+                  </deps:build-requirement>
+                  <deps:build-requirement>
+                     <deps:Dependency>
+                        <deps:on rdf:datatype="https://ontologi.es/doap-deps#MvnId">org.eclipse.jetty/jetty-server 9.4.43.v20210629</deps:on>
+                     </deps:Dependency>
+                  </deps:build-requirement>
+                  <deps:build-requirement>
+                     <deps:Dependency>
+                        <deps:on rdf:datatype="https://ontologi.es/doap-deps#MvnId">org.eclipse.jetty/jetty-servlet 9.4.43.v20210629</deps:on>
+                     </deps:Dependency>
+                  </deps:build-requirement>
+                  <deps:build-requirement>
+                     <deps:Dependency>
+                        <deps:on rdf:datatype="https://ontologi.es/doap-deps#MvnId">com.google.code.findbugs/jsr305 3.0.2</deps:on>
+                     </deps:Dependency>
+                  </deps:build-requirement>
+                  <doap:maintainer>
+                     <foaf:Person xmlns:foaf="http://xmlns.com/foaf/0.1/">
+                        <doap:name>Jonathan Hedley</doap:name>
+                        <foaf:mbox rdf:resource="mailto:jonathan@hedley.net"/>
+                     </foaf:Person>
+                  </doap:maintainer>
+               </doap:Project>
+            </deps:on>
+         </deps:Dependency>
+      </deps:build-requirement>
+      <deps:build-requirement xmlns:deps="https://ontologi.es/doap-deps#">
+         <deps:Dependency>
+            <deps:on>
+               <doap:Project>
+                  <doap:release>
+                     <doap:Version>
+                        <doap:revision>9.0.39</doap:revision>
+                     </doap:Version>
+                  </doap:release>
+                  <doap:description>Tomcat Connectors and HTTP parser</doap:description>
+                  <doap:homepage rdf:resource="https://tomcat.apache.org/"/>
+                  <doap:license>
+                     <foaf:Document xmlns:foaf="http://xmlns.com/foaf/0.1/">
+                        <doap:name>Apache License, Version 2.0</doap:name>
+                        <doap:homepage rdf:resource="http://www.apache.org/licenses/LICENSE-2.0.txt"/>
+                     </foaf:Document>
+                  </doap:license>
+                  <deps:build-requirement>
+                     <deps:Dependency>
+                        <deps:on rdf:datatype="https://ontologi.es/doap-deps#MvnId">org.apache.tomcat/tomcat-servlet-api 9.0.39</deps:on>
+                     </deps:Dependency>
+                  </deps:build-requirement>
+                  <deps:build-requirement>
+                     <deps:Dependency>
+                        <deps:on rdf:datatype="https://ontologi.es/doap-deps#MvnId">org.apache.tomcat/tomcat-jni 9.0.39</deps:on>
+                     </deps:Dependency>
+                  </deps:build-requirement>
+                  <deps:build-requirement>
+                     <deps:Dependency>
+                        <deps:on rdf:datatype="https://ontologi.es/doap-deps#MvnId">org.apache.tomcat/tomcat-juli 9.0.39</deps:on>
+                     </deps:Dependency>
+                  </deps:build-requirement>
+                  <deps:build-requirement>
+                     <deps:Dependency>
+                        <deps:on rdf:datatype="https://ontologi.es/doap-deps#MvnId">org.apache.tomcat/tomcat-util 9.0.39</deps:on>
+                     </deps:Dependency>
+                  </deps:build-requirement>
+               </doap:Project>
+            </deps:on>
+         </deps:Dependency>
+      </deps:build-requirement>
+   </doap:Project>
+</rdf:RDF>
