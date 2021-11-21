@@ -16,31 +16,20 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 -->
 <!DOCTYPE xsl:stylesheet [
-    <!ENTITY ac     "https://w3id.org/atomgraph/client#">
     <!ENTITY rdf    "http://www.w3.org/1999/02/22-rdf-syntax-ns#">
-    <!ENTITY rdfs   "http://www.w3.org/2000/01/rdf-schema#">
-    <!ENTITY xsd    "http://www.w3.org/2001/XMLSchema#">
-    <!ENTITY owl    "http://www.w3.org/2002/07/owl#">
     <!ENTITY doap   "http://usefulinc.com/ns/doap#">
     <!ENTITY foaf   "http://xmlns.com/foaf/0.1/">
     <!ENTITY deps   "https://ontologi.es/doap-deps#">
 ]>
 <xsl:stylesheet version="3.0"
-xmlns="http://www.w3.org/2000/svg"
-xmlns:svg="http://www.w3.org/2000/svg"
+xmlns="&doap;"
 xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
 xmlns:err="http://www.w3.org/2005/xqt-errors"
-xmlns:ac="&ac;"
 xmlns:rdf="&rdf;"
-xmlns:rdfs="&rdfs;"
-xmlns:xsd="&xsd;"
-xmlns:owl="&owl;"
-xmlns:doap="&doap;"
 xmlns:foaf="&foaf;"
 xmlns:deps="&deps;"
 xmlns:pom="http://maven.apache.org/POM/4.0.0"
 xmlns:xs="http://www.w3.org/2001/XMLSchema"
-xmlns:math="http://www.w3.org/2005/xpath-functions/math"
 exclude-result-prefixes="#all">
 
     <xsl:output method="xml" indent="yes" encoding="UTF-8" media-type="application/rdf+xml"/>
@@ -59,25 +48,25 @@ exclude-result-prefixes="#all">
         <xsl:param name="pom-url" select="document-uri()" as="xs:anyURI?" tunnel="yes"/>
         <xsl:param name="project-uri" select="xs:anyURI($pom-url || '#project')" as="xs:anyURI" tunnel="yes"/>
 
-        <doap:Project>
+        <Project>
             <xsl:if test="$project-uri">
                 <xsl:attribute name="rdf:about"><xsl:value-of select="$project-uri"/></xsl:attribute>
             </xsl:if>
 
             <xsl:apply-templates/>
-        </doap:Project>
+        </Project>
     </xsl:template>
 
     <xsl:template match="pom:name">
-        <doap:name>
+        <name>
             <xsl:value-of select="."/>
-        </doap:name>
+        </name>
     </xsl:template>
 
     <xsl:template match="pom:description">
-        <doap:description>
+        <description>
             <xsl:value-of select="."/>
-        </doap:description>
+        </description>
     </xsl:template>
 
     <xsl:template match="pom:licenses">
@@ -85,27 +74,27 @@ exclude-result-prefixes="#all">
     </xsl:template>
 
     <xsl:template match="pom:license">
-        <doap:license>
+        <license>
             <foaf:Document>
                 <xsl:apply-templates/>
             </foaf:Document>
-        </doap:license>
+        </license>
     </xsl:template>
 
     <xsl:template match="pom:project/pom:version">
-        <doap:release>
-            <doap:Version>
-                <doap:revision>
+        <release>
+            <Version>
+                <revision>
                     <xsl:value-of select="."/>
-                </doap:revision>
-            </doap:Version>
-        </doap:release>
+                </revision>
+            </Version>
+        </release>
     </xsl:template>
 
     <!-- Saxon allows URIs such as 'git@github.com:cbeust/testng.git' but they seem to be invalid, so Jena fails parsing them -->
     <xsl:template match="pom:url">
         <xsl:try>
-            <doap:homepage rdf:resource="{resolve-uri(.)}"/>
+            <homepage rdf:resource="{resolve-uri(.)}"/>
 
             <xsl:catch errors="err:FORG0002">
                 <xsl:message>Could not cast '<xsl:value-of select="."/>' to URL</xsl:message>
@@ -118,21 +107,21 @@ exclude-result-prefixes="#all">
     </xsl:template>
 
     <xsl:template match="pom:developer">
-        <doap:maintainer>
+        <maintainer>
             <foaf:Person>
                 <xsl:apply-templates/>
             </foaf:Person>
-        </doap:maintainer>
+        </maintainer>
     </xsl:template>
 
 <!--     <xsl:template match="pom:organization">
-        <doap:vendor>
+        <vendor>
             <foaf:Organization>
                 <foaf:name>
                     <xsl:value-of select="."/>
                 </foaf:name>
             </foaf:Organization>
-        </doap:vendor>
+        </vendor>
     </xsl:template> -->
 
     <xsl:template match="pom:email">
@@ -156,16 +145,16 @@ exclude-result-prefixes="#all">
     </xsl:template>
 
     <xsl:template match="pom:scm[starts-with(pom:connection, 'scm:git')]">
-        <doap:repository>
-            <doap:GitRepository>
+        <repository>
+            <GitRepository>
                 <xsl:apply-templates/>
-            </doap:GitRepository>
-        </doap:repository>
+            </GitRepository>
+        </repository>
     </xsl:template>
 
     <xsl:template match="pom:scm/pom:url" priority="1">
         <xsl:try>
-            <doap:browse rdf:resource="{resolve-uri(.)}"/>
+            <browse rdf:resource="{resolve-uri(.)}"/>
 
             <xsl:catch errors="err:FORG0002">
                 <xsl:message>Could not cast '<xsl:value-of select="."/>' to URL</xsl:message>
@@ -175,7 +164,7 @@ exclude-result-prefixes="#all">
 
     <xsl:template match="pom:connection">
         <xsl:try>
-            <doap:location rdf:resource="{resolve-uri(.)}"/>
+            <location rdf:resource="{resolve-uri(.)}"/>
 
             <xsl:catch errors="err:FORG0002">
                 <xsl:message>Could not cast '<xsl:value-of select="."/>' to URL</xsl:message>
