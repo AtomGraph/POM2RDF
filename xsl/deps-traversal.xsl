@@ -58,8 +58,11 @@ Artifact: <xsl:value-of select="$mvn-id"/>
 
         <xsl:try>
             <xsl:variable name="pom-url" select="resolve-uri($pom-relative-url, $mvn-base-uri)" as="xs:anyURI"/>
-<xsl:message>POM: <xsl:value-of select="$pom-url"/>
+            <xsl:variable name="project-relative-uri" select="translate(pom:groupId, '.', '/') || '/' || pom:artifactId || '#project'" as="xs:string"/>
+            <xsl:variable name="project-uri" select="resolve-uri($project-relative-uri, $mvn-base-uri)" as="xs:anyURI"/>
 
+<xsl:message>POM: <xsl:value-of select="$pom-url"/>
+Project URI: <xsl:value-of select="$project-uri"/>
 </xsl:message>
 
             <xsl:choose>
@@ -68,7 +71,7 @@ Artifact: <xsl:value-of select="$mvn-id"/>
                         <deps:Dependency>
                             <deps:on>
                                 <xsl:apply-templates select="document($pom-url)/pom:project">
-                                    <xsl:with-param name="pom-url" select="$pom-url" tunnel="yes"/>
+                                    <xsl:with-param name="project-uri" select="$project-uri" tunnel="yes"/>
                                     <xsl:with-param name="level" select="$level + 1" tunnel="yes"/>
                                     <xsl:with-param name="traversed-ids" select="($mvn-id, $traversed-ids)" tunnel="yes"/>
                                 </xsl:apply-templates>
