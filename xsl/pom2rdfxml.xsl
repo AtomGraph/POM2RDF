@@ -56,7 +56,14 @@ exclude-result-prefixes="#all">
     </xsl:template>
 
     <xsl:template match="pom:project">
+        <xsl:param name="pom-url" select="document-uri()" as="xs:anyURI?"/>
+        <xsl:param name="uri" select="$pom-url || '#project'" as="xs:anyURI"/>
+
         <doap:Project>
+            <xsl:if test="$uri">
+                <xsl:attribute name="rdf:about"><xsl:value-of select="$uri"/></xsl:attribute>
+            </xsl:if>
+
             <xsl:apply-templates/>
         </doap:Project>
     </xsl:template>
