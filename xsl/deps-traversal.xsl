@@ -79,6 +79,7 @@ Artifact: <xsl:value-of select="$mvn-id"/>
                         <deps:Dependency>
                             <deps:on>
                                 <xsl:apply-templates select="document($pom-url)/pom:project">
+                                    <xsl:with-param name="pom-url" select="$pom-url" tunnel="yes"/>
                                     <xsl:with-param name="level" select="$level + 1" tunnel="yes"/>
                                     <xsl:with-param name="traversed-ids" select="($mvn-id, $traversed-ids)" tunnel="yes"/>
                                 </xsl:apply-templates>
