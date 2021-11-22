@@ -36,6 +36,8 @@ Any other expressions will lead to invalid Maven POM URLs and therefore will not
 
 Cyclical dependencies are broken by not embedding any occurrence other than the first.
 
-## Sample
+## Output
+
+A non-existing `mvn:` URI scheme is used to identify artifacts and their versions. Property `doap:releaseOf` is not defined by DOAP but is used as the inverse of `doap:release`.
 
 [Sample RDF output](sample/doap.rdf) generated from [LinkedDataHub's POM](https://github.com/AtomGraph/LinkedDataHub/blob/master/pom.xml) using `max-depth=1`.
