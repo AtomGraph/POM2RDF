@@ -36,7 +36,7 @@ The base URL that POM relative URLs of `SNAPSHOT` versions (constructed from `<g
 
 The only POM expressions that will be recognized and replaced with a value are:
 * `<groupId>${project.groupId}</groupId>`
-* `<pom:artifactId>${project.artifactId}</pom:artifactId>`
+* `<artifactId>${project.artifactId}</artifactId>`
 * `<version>${project.version}</version>`
 
 There is currently no support for Maven features such as parent POMs etc.
