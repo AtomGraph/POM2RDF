@@ -44,13 +44,12 @@ exclude-result-prefixes="#all">
         </rdf:RDF>
     </xsl:template>
 
-    <xsl:template match="pom:project">
-        <xsl:param name="pom-url" select="document-uri()" as="xs:anyURI?" tunnel="yes"/>
-        <xsl:param name="project-uri" select="xs:anyURI($pom-url || '#project')" as="xs:anyURI" tunnel="yes"/>
+    <xsl:template match="pom:project[pom:groupId][pom:artifactId]">
+        <xsl:param name="artifact-uri" select="xs:anyURI('mvn:' || pom:groupId || ':' || pom:artifactId)" as="xs:anyURI" tunnel="yes"/>
 
         <Project>
-            <xsl:if test="$project-uri">
-                <xsl:attribute name="rdf:about"><xsl:value-of select="$project-uri"/></xsl:attribute>
+            <xsl:if test="$artifact-uri">
+                <xsl:attribute name="rdf:about"><xsl:value-of select="$artifact-uri"/></xsl:attribute>
             </xsl:if>
 
             <xsl:apply-templates/>
@@ -176,18 +175,18 @@ exclude-result-prefixes="#all">
         <xsl:apply-templates/>
     </xsl:template>
 
-    <xsl:template match="pom:dependency">
+    <xsl:template match="pom:dependency[pom:artifactId]">
         <deps:build-requirement>
             <deps:Dependency>
-                <deps:on rdf:datatype="&deps;MvnId">
-                    <xsl:value-of select="pom:groupId"/>
-                    <xsl:text>/</xsl:text>
-                    <xsl:value-of select="pom:artifactId"/>
-                    <xsl:if test="pom:version">
-                        <xsl:text> </xsl:text>
-                        <xsl:value-of select="pom:version"/>
-                    </xsl:if>
-                </deps:on>
+                <deps:on rdf:resource="{'mvn:' || pom:groupId || ':' || pom:artifactId}"/>
+            </deps:Dependency>
+        </deps:build-requirement>
+    </xsl:template>
+
+    <xsl:template match="pom:dependency[pom:artifactId][pom:version]" priority="1">
+        <deps:build-requirement>
+            <deps:Dependency>
+                <deps:on rdf:resource="{'mvn:' || pom:groupId || ':' || pom:artifactId || ':' || pom:version}"/>
             </deps:Dependency>
         </deps:build-requirement>
     </xsl:template>

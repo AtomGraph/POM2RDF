@@ -43,8 +43,27 @@ exclude-result-prefixes="#all">
     <xsl:param name="mvn-base-uri" select="'https://repo1.maven.org/maven2/'" as="xs:string"/>
     <xsl:param name="max-depth" select="2" as="xs:integer"/>
 
+    <xsl:template match="/">
+        <rdf:RDF>
+            <xsl:apply-templates/>
+        </rdf:RDF>
+    </xsl:template>
+
+    <xsl:template match="pom:project">
+        <xsl:param name="pom-url" select="document-uri()" as="xs:anyURI?" tunnel="yes"/>
+        <xsl:param name="artifact-uri" select="xs:anyURI('mvn:' || pom:groupId || ':' || pom:artifactId)" as="xs:anyURI" tunnel="yes"/>
+
+        <Project>
+            <xsl:if test="$artifact-uri">
+                <xsl:attribute name="rdf:about"><xsl:value-of select="$artifact-uri"/></xsl:attribute>
+            </xsl:if>
+
+            <xsl:apply-templates/>
+        </Project>
+    </xsl:template>
+
     <!-- we need version to build the .pom URL -->
-    <xsl:template match="pom:dependency[pom:version]">
+    <xsl:template match="pom:dependency[pom:groupId][pom:artifactId][pom:version]">
         <xsl:param name="mvn-id" select="pom:groupId || ':' || pom:artifactId || ':' || pom:version" as="xs:string"/>
         <xsl:param name="traversed-ids" as="xs:string*" tunnel="yes"/>
         <xsl:param name="level" select="0" as="xs:integer" tunnel="yes"/>
@@ -58,11 +77,12 @@ Artifact: <xsl:value-of select="$mvn-id"/>
 
         <xsl:try>
             <xsl:variable name="pom-url" select="resolve-uri($pom-relative-url, $mvn-base-uri)" as="xs:anyURI"/>
-            <xsl:variable name="project-relative-uri" select="translate(pom:groupId, '.', '/') || '/' || pom:artifactId || '#project'" as="xs:string"/>
-            <xsl:variable name="project-uri" select="resolve-uri($project-relative-uri, $mvn-base-uri)" as="xs:anyURI"/>
+            <xsl:variable name="artifact-uri" select="xs:anyURI('mvn:' || pom:groupId || ':' || pom:artifactId)" as="xs:anyURI"/>
+            <xsl:variable name="version-uri" select="xs:anyURI('mvn:' || pom:groupId || ':' || pom:artifactId || ':' || pom:version)" as="xs:anyURI"/>
 
 <xsl:message>POM: <xsl:value-of select="$pom-url"/>
-Project URI: <xsl:value-of select="$project-uri"/>
+Artifact URI: <xsl:value-of select="$artifact-uri"/>
+Version URI: <xsl:value-of select="$version-uri"/>
 </xsl:message>
 
             <xsl:choose>
@@ -70,11 +90,20 @@ Project URI: <xsl:value-of select="$project-uri"/>
                     <deps:build-requirement>
                         <deps:Dependency>
                             <deps:on>
-                                <xsl:apply-templates select="document($pom-url)/pom:project">
-                                    <xsl:with-param name="project-uri" select="$project-uri" tunnel="yes"/>
-                                    <xsl:with-param name="level" select="$level + 1" tunnel="yes"/>
-                                    <xsl:with-param name="traversed-ids" select="($mvn-id, $traversed-ids)" tunnel="yes"/>
-                                </xsl:apply-templates>
+                                <Version rdf:about="{$version-uri}">
+                                    <revision>
+                                        <xsl:value-of select="pom:version"/>
+                                    </revision>
+                                    
+                                    <!-- There is no doap:releaseOf property :/ But using the inverse doap:release would be much more complicated -->
+                                    <releaseOf>
+                                        <xsl:apply-templates select="document($pom-url)/pom:project">
+                                            <xsl:with-param name="artifact-uri" select="$artifact-uri" tunnel="yes"/>
+                                            <xsl:with-param name="level" select="$level + 1" tunnel="yes"/>
+                                            <xsl:with-param name="traversed-ids" select="($mvn-id, $traversed-ids)" tunnel="yes"/>
+                                        </xsl:apply-templates>
+                                    </releaseOf>
+                                </Version>
                             </deps:on>
                         </deps:Dependency>
                     </deps:build-requirement>
@@ -89,6 +118,5 @@ Project URI: <xsl:value-of select="$project-uri"/>
             </xsl:catch>
         </xsl:try>
     </xsl:template>
-
 
 </xsl:stylesheet>
