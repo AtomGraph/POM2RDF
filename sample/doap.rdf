@@ -88,6 +88,16 @@
                         </deps:build-requirement>
                         <deps:build-requirement>
                            <deps:Dependency>
+                              <deps:on rdf:resource="mvn:org.glassfish.jersey.containers:jersey-container-grizzly2-http:${project.version}"/>
+                           </deps:Dependency>
+                        </deps:build-requirement>
+                        <deps:build-requirement>
+                           <deps:Dependency>
+                              <deps:on rdf:resource="mvn:org.glassfish.jersey.test-framework.providers:jersey-test-framework-provider-grizzly2:${project.version}"/>
+                           </deps:Dependency>
+                        </deps:build-requirement>
+                        <deps:build-requirement>
+                           <deps:Dependency>
                               <deps:on rdf:resource="mvn:com.google.guava:guava"/>
                            </deps:Dependency>
                         </deps:build-requirement>
@@ -108,6 +118,41 @@
                         <description>
         Jersey Multipart entity providers support module.
     </description>
+                        <deps:build-requirement>
+                           <deps:Dependency>
+                              <deps:on rdf:resource="mvn:org.glassfish.jersey.core:jersey-common:${project.version}"/>
+                           </deps:Dependency>
+                        </deps:build-requirement>
+                        <deps:build-requirement>
+                           <deps:Dependency>
+                              <deps:on rdf:resource="mvn:org.glassfish.jersey.core:jersey-server:${project.version}"/>
+                           </deps:Dependency>
+                        </deps:build-requirement>
+                        <deps:build-requirement>
+                           <deps:Dependency>
+                              <deps:on rdf:resource="mvn:org.jvnet.mimepull:mimepull:${mimepull.version}"/>
+                           </deps:Dependency>
+                        </deps:build-requirement>
+                        <deps:build-requirement>
+                           <deps:Dependency>
+                              <deps:on rdf:resource="mvn:org.glassfish.jersey.test-framework.providers:jersey-test-framework-provider-bundle:${project.version}"/>
+                           </deps:Dependency>
+                        </deps:build-requirement>
+                        <deps:build-requirement>
+                           <deps:Dependency>
+                              <deps:on rdf:resource="mvn:org.glassfish.jersey.connectors:jersey-apache-connector:${project.version}"/>
+                           </deps:Dependency>
+                        </deps:build-requirement>
+                        <deps:build-requirement>
+                           <deps:Dependency>
+                              <deps:on rdf:resource="mvn:org.glassfish.jersey.connectors:jersey-grizzly-connector:${project.version}"/>
+                           </deps:Dependency>
+                        </deps:build-requirement>
+                        <deps:build-requirement>
+                           <deps:Dependency>
+                              <deps:on rdf:resource="mvn:org.glassfish.jersey.connectors:jersey-jetty-connector:${project.version}"/>
+                           </deps:Dependency>
+                        </deps:build-requirement>
                         <deps:build-requirement>
                            <deps:Dependency>
                               <deps:on rdf:resource="mvn:junit:junit"/>
@@ -132,6 +177,11 @@
     </description>
                         <deps:build-requirement>
                            <deps:Dependency>
+                              <deps:on rdf:resource="mvn:org.glassfish.jersey.core:jersey-common:${project.version}"/>
+                           </deps:Dependency>
+                        </deps:build-requirement>
+                        <deps:build-requirement>
+                           <deps:Dependency>
                               <deps:on rdf:resource="mvn:org.glassfish:jakarta.json"/>
                            </deps:Dependency>
                         </deps:build-requirement>
@@ -143,6 +193,16 @@
                         <deps:build-requirement>
                            <deps:Dependency>
                               <deps:on rdf:resource="mvn:junit:junit"/>
+                           </deps:Dependency>
+                        </deps:build-requirement>
+                        <deps:build-requirement>
+                           <deps:Dependency>
+                              <deps:on rdf:resource="mvn:org.glassfish.jersey.core:jersey-server:${project.version}"/>
+                           </deps:Dependency>
+                        </deps:build-requirement>
+                        <deps:build-requirement>
+                           <deps:Dependency>
+                              <deps:on rdf:resource="mvn:org.glassfish.jersey.core:jersey-client:${project.version}"/>
                            </deps:Dependency>
                         </deps:build-requirement>
                      </Project>
@@ -329,6 +389,198 @@
                         <deps:build-requirement>
                            <deps:Dependency>
                               <deps:on rdf:resource="mvn:info.picocli:picocli:4.0.3"/>
+                           </deps:Dependency>
+                        </deps:build-requirement>
+                     </Project>
+                  </releaseOf>
+               </Version>
+            </deps:on>
+         </deps:Dependency>
+      </deps:build-requirement>
+      <deps:build-requirement xmlns:deps="https://ontologi.es/doap-deps#">
+         <deps:Dependency>
+            <deps:on>
+               <Version rdf:about="mvn:com.atomgraph:processor:3.11.1-SNAPSHOT">
+                  <revision>3.11.1-SNAPSHOT</revision>
+                  <releaseOf>
+                     <Project rdf:about="mvn:com.atomgraph:processor">
+                        <release>
+                           <Version>
+                              <revision>3.11.1-SNAPSHOT</revision>
+                           </Version>
+                        </release>
+                        <name>AtomGraph Processor</name>
+                        <description>Ontology-driven Linked Data processor and server for SPARQL backends</description>
+                        <homepage rdf:resource="https://github.com/AtomGraph/Processor"/>
+                        <maintainer>
+                           <foaf:Person xmlns:foaf="http://xmlns.com/foaf/0.1/">
+                              <foaf:mbox rdf:resource="mailto:martynas@atomgraph.com"/>
+                              <foaf:workplaceHomepage rdf:resource="https://atomgraph.com"/>
+                           </foaf:Person>
+                        </maintainer>
+                        <license>
+                           <foaf:Document xmlns:foaf="http://xmlns.com/foaf/0.1/">
+                              <name>Apache License 2.0</name>
+                              <homepage rdf:resource="http://www.apache.org/licenses/LICENSE-2.0.html"/>
+                           </foaf:Document>
+                        </license>
+                        <repository>
+                           <GitRepository>
+                              <browse rdf:resource="https://github.com/AtomGraph/Processor"/>
+                              <location rdf:resource="scm:git:git://github.com/AtomGraph/Processor.git"/>
+                           </GitRepository>
+                        </repository>
+                        <deps:build-requirement>
+                           <deps:Dependency>
+                              <deps:on rdf:resource="mvn:junit:junit:4.13.1"/>
+                           </deps:Dependency>
+                        </deps:build-requirement>
+                        <deps:build-requirement>
+                           <deps:Dependency>
+                              <deps:on rdf:resource="mvn:jakarta.servlet:jakarta.servlet-api:4.0.3"/>
+                           </deps:Dependency>
+                        </deps:build-requirement>
+                        <deps:build-requirement>
+                           <deps:Dependency>
+                              <deps:on rdf:resource="mvn:com.atomgraph:twirl:1.0.20"/>
+                           </deps:Dependency>
+                        </deps:build-requirement>
+                        <deps:build-requirement>
+                           <deps:Dependency>
+                              <deps:on rdf:resource="mvn:com.atomgraph:core:3.0.21-SNAPSHOT"/>
+                           </deps:Dependency>
+                        </deps:build-requirement>
+                        <deps:build-requirement>
+                           <deps:Dependency>
+                              <deps:on rdf:resource="mvn:org.apache.jena:jena-shacl:3.16.0"/>
+                           </deps:Dependency>
+                        </deps:build-requirement>
+                     </Project>
+                  </releaseOf>
+               </Version>
+            </deps:on>
+         </deps:Dependency>
+      </deps:build-requirement>
+      <deps:build-requirement xmlns:deps="https://ontologi.es/doap-deps#">
+         <deps:Dependency>
+            <deps:on>
+               <Version rdf:about="mvn:com.atomgraph:client:3.0.91-SNAPSHOT">
+                  <revision>3.0.91-SNAPSHOT</revision>
+                  <releaseOf>
+                     <Project rdf:about="mvn:com.atomgraph:client">
+                        <release>
+                           <Version>
+                              <revision>3.0.91-SNAPSHOT</revision>
+                           </Version>
+                        </release>
+                        <name>AtomGraph Web-Client</name>
+                        <description>Generic Linked Data browser and UX component framework</description>
+                        <homepage rdf:resource="https://github.com/AtomGraph/Web-Client"/>
+                        <maintainer>
+                           <foaf:Person xmlns:foaf="http://xmlns.com/foaf/0.1/">
+                              <foaf:mbox rdf:resource="mailto:martynas@atomgraph.com"/>
+                              <foaf:workplaceHomepage rdf:resource="https://atomgraph.com"/>
+                           </foaf:Person>
+                        </maintainer>
+                        <license>
+                           <foaf:Document xmlns:foaf="http://xmlns.com/foaf/0.1/">
+                              <name>Apache License 2.0</name>
+                              <homepage rdf:resource="http://www.apache.org/licenses/LICENSE-2.0.html"/>
+                           </foaf:Document>
+                        </license>
+                        <repository>
+                           <GitRepository>
+                              <browse rdf:resource="https://github.com/AtomGraph/Web-Client"/>
+                              <location rdf:resource="scm:git:git://github.com/AtomGraph/Web-Client.git"/>
+                           </GitRepository>
+                        </repository>
+                        <deps:build-requirement>
+                           <deps:Dependency>
+                              <deps:on rdf:resource="mvn:junit:junit:4.13.1"/>
+                           </deps:Dependency>
+                        </deps:build-requirement>
+                        <deps:build-requirement>
+                           <deps:Dependency>
+                              <deps:on rdf:resource="mvn:net.sf.saxon:Saxon-HE:10.3"/>
+                           </deps:Dependency>
+                        </deps:build-requirement>
+                        <deps:build-requirement>
+                           <deps:Dependency>
+                              <deps:on rdf:resource="mvn:jakarta.servlet:jakarta.servlet-api:4.0.3"/>
+                           </deps:Dependency>
+                        </deps:build-requirement>
+                        <deps:build-requirement>
+                           <deps:Dependency>
+                              <deps:on rdf:resource="mvn:com.atomgraph:twirl:1.0.20"/>
+                           </deps:Dependency>
+                        </deps:build-requirement>
+                        <deps:build-requirement>
+                           <deps:Dependency>
+                              <deps:on rdf:resource="mvn:com.atomgraph:core:3.0.21-SNAPSHOT"/>
+                           </deps:Dependency>
+                        </deps:build-requirement>
+                     </Project>
+                  </releaseOf>
+               </Version>
+            </deps:on>
+         </deps:Dependency>
+      </deps:build-requirement>
+      <deps:build-requirement xmlns:deps="https://ontologi.es/doap-deps#">
+         <deps:Dependency>
+            <deps:on>
+               <Version rdf:about="mvn:com.atomgraph:client:3.0.91-SNAPSHOT">
+                  <revision>3.0.91-SNAPSHOT</revision>
+                  <releaseOf>
+                     <Project rdf:about="mvn:com.atomgraph:client">
+                        <release>
+                           <Version>
+                              <revision>3.0.91-SNAPSHOT</revision>
+                           </Version>
+                        </release>
+                        <name>AtomGraph Web-Client</name>
+                        <description>Generic Linked Data browser and UX component framework</description>
+                        <homepage rdf:resource="https://github.com/AtomGraph/Web-Client"/>
+                        <maintainer>
+                           <foaf:Person xmlns:foaf="http://xmlns.com/foaf/0.1/">
+                              <foaf:mbox rdf:resource="mailto:martynas@atomgraph.com"/>
+                              <foaf:workplaceHomepage rdf:resource="https://atomgraph.com"/>
+                           </foaf:Person>
+                        </maintainer>
+                        <license>
+                           <foaf:Document xmlns:foaf="http://xmlns.com/foaf/0.1/">
+                              <name>Apache License 2.0</name>
+                              <homepage rdf:resource="http://www.apache.org/licenses/LICENSE-2.0.html"/>
+                           </foaf:Document>
+                        </license>
+                        <repository>
+                           <GitRepository>
+                              <browse rdf:resource="https://github.com/AtomGraph/Web-Client"/>
+                              <location rdf:resource="scm:git:git://github.com/AtomGraph/Web-Client.git"/>
+                           </GitRepository>
+                        </repository>
+                        <deps:build-requirement>
+                           <deps:Dependency>
+                              <deps:on rdf:resource="mvn:junit:junit:4.13.1"/>
+                           </deps:Dependency>
+                        </deps:build-requirement>
+                        <deps:build-requirement>
+                           <deps:Dependency>
+                              <deps:on rdf:resource="mvn:net.sf.saxon:Saxon-HE:10.3"/>
+                           </deps:Dependency>
+                        </deps:build-requirement>
+                        <deps:build-requirement>
+                           <deps:Dependency>
+                              <deps:on rdf:resource="mvn:jakarta.servlet:jakarta.servlet-api:4.0.3"/>
+                           </deps:Dependency>
+                        </deps:build-requirement>
+                        <deps:build-requirement>
+                           <deps:Dependency>
+                              <deps:on rdf:resource="mvn:com.atomgraph:twirl:1.0.20"/>
+                           </deps:Dependency>
+                        </deps:build-requirement>
+                        <deps:build-requirement>
+                           <deps:Dependency>
+                              <deps:on rdf:resource="mvn:com.atomgraph:core:3.0.21-SNAPSHOT"/>
                            </deps:Dependency>
                         </deps:build-requirement>
                      </Project>

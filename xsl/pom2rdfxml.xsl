@@ -176,17 +176,26 @@ exclude-result-prefixes="#all">
     </xsl:template>
 
     <xsl:template match="pom:dependency[pom:artifactId]">
+        <xsl:param name="group-id" select="if (pom:groupId = '${project.groupId}' and /pom:project/pom:groupId) then replace(pom:groupId, '\$\{project\.groupId\}', /pom:project/pom:groupId) else pom:groupId" as="xs:string?"/>
+        <xsl:param name="artifact-id" select="if (pom:artifactId = '${project.artifactId}' and /pom:project/pom:artifactId) then replace(pom:artifactId, '\$\{project\.artifactId\}', /pom:project/pom:artifactId) else pom:artifactId" as="xs:string?"/>
+        <xsl:param name="mvn-id" select="$group-id || ':' || $artifact-id" as="xs:string"/>
+
         <deps:build-requirement>
             <deps:Dependency>
-                <deps:on rdf:resource="{'mvn:' || pom:groupId || ':' || pom:artifactId}"/>
+                <deps:on rdf:resource="{'mvn:' || $mvn-id}"/>
             </deps:Dependency>
         </deps:build-requirement>
     </xsl:template>
 
     <xsl:template match="pom:dependency[pom:artifactId][pom:version]" priority="1">
+        <xsl:param name="group-id" select="if (pom:groupId = '${project.groupId}' and /pom:project/pom:groupId) then replace(pom:groupId, '\$\{project\.groupId\}', /pom:project/pom:groupId) else pom:groupId" as="xs:string?"/>
+        <xsl:param name="artifact-id" select="if (pom:artifactId = '${project.artifactId}' and /pom:project/pom:artifactId) then replace(pom:artifactId, '\$\{project\.artifactId\}', /pom:project/pom:artifactId) else pom:artifactId" as="xs:string?"/>
+        <xsl:param name="version" select="if (pom:version = '${project.version}' and /pom:project/pom:version) then replace(pom:version, '\$\{project\.version\}', /pom:project/pom:version) else pom:version" as="xs:string?"/>
+        <xsl:param name="mvn-id" select="$group-id || ':' || $artifact-id || ':' || $version" as="xs:string"/>
+
         <deps:build-requirement>
             <deps:Dependency>
-                <deps:on rdf:resource="{'mvn:' || pom:groupId || ':' || pom:artifactId || ':' || pom:version}"/>
+                <deps:on rdf:resource="{'mvn:' || $mvn-id}"/>
             </deps:Dependency>
         </deps:build-requirement>
     </xsl:template>

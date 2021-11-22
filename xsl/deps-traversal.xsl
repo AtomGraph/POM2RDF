@@ -41,6 +41,7 @@ exclude-result-prefixes="#all">
     <xsl:mode on-no-match="deep-skip"/>
 
     <xsl:param name="mvn-base-uri" select="'https://repo1.maven.org/maven2/'" as="xs:string"/>
+    <xsl:param name="snapshot-base-uri" select="'https://oss.sonatype.org/content/repositories/snapshots/'" as="xs:string"/>
     <xsl:param name="max-depth" select="2" as="xs:integer"/>
 
     <xsl:template match="/">
@@ -62,13 +63,55 @@ exclude-result-prefixes="#all">
         </Project>
     </xsl:template>
 
-    <!-- we need version to build the .pom URL -->
-    <xsl:template match="pom:dependency[pom:groupId][pom:artifactId][pom:version]">
-        <xsl:param name="mvn-id" select="pom:groupId || ':' || pom:artifactId || ':' || pom:version" as="xs:string"/>
+    <!-- special case for SNAPSHOT versions that use a different repository -->
+    <xsl:template match="pom:dependency[pom:groupId][pom:artifactId][ends-with(pom:version, '-SNAPSHOT')]" priority="1">
+        <xsl:param name="group-id" select="if (pom:groupId = '${project.groupId}' and /pom:project/pom:groupId) then replace(pom:groupId, '\$\{project\.groupId\}', /pom:project/pom:groupId) else pom:groupId" as="xs:string?"/>
+        <xsl:param name="artifact-id" select="if (pom:artifactId = '${project.artifactId}' and /pom:project/pom:artifactId) then replace(pom:artifactId, '\$\{project\.artifactId\}', /pom:project/pom:artifactId) else pom:artifactId" as="xs:string?"/>
+        <xsl:param name="version" select="if (pom:version = '${project.version}' and /pom:project/pom:version) then replace(pom:version, '\$\{project\.version\}', /pom:project/pom:version) else pom:version" as="xs:string?"/>
+        <xsl:param name="mvn-id" select="$group-id || ':' || $artifact-id || ':' || $version" as="xs:string"/>
         <xsl:param name="traversed-ids" as="xs:string*" tunnel="yes"/>
         <xsl:param name="level" select="0" as="xs:integer" tunnel="yes"/>
-        <xsl:variable name="pom-relative-url" select="translate(pom:groupId, '.', '/') || '/' || pom:artifactId || '/' || pom:version || '/' || pom:artifactId || '-' || pom:version || '.pom'" as="xs:string"/>
-        <xsl:variable name="pom-relative-url" select="if (contains($pom-relative-url, '${project.version}') and /pom:project/pom:version) then replace($pom-relative-url, '\$\{project\.version\}', /pom:project/pom:version) else $pom-relative-url" as="xs:string"/>
+        <xsl:param name="maven-metadata-relative-url" select="translate($group-id, '.', '/') || '/' || $artifact-id || '/' || $version || '/' || 'maven-metadata.xml'" as="xs:string"/>
+
+        <xsl:try>
+            <xsl:variable name="maven-metadata-url" select="resolve-uri($maven-metadata-relative-url, $snapshot-base-uri)" as="xs:anyURI"/>
+
+            <xsl:message>SNAPSHOT maven-metadata: <xsl:value-of select="$maven-metadata-url"/></xsl:message>
+
+            <xsl:if test="doc-available($maven-metadata-url)">
+                <xsl:variable name="version-no-snapshot" select="substring-before($version, '-SNAPSHOT')" as="xs:string"/>
+                <xsl:variable name="maven-metadata" select="document($maven-metadata-url)" as="document-node()"/>
+                <xsl:variable name="timestamp" select="$maven-metadata/metadata/versioning/snapshot/timestamp" as="xs:string"/>
+                <xsl:variable name="build-number" select="$maven-metadata/metadata/versioning/snapshot/buildNumber" as="xs:string"/>
+                <xsl:variable name="pom-relative-url" select="translate($group-id, '.', '/') || '/' || $artifact-id || '/' || $version || '/' || $artifact-id || '-' || $version-no-snapshot || '-' || $timestamp || '-' || $build-number || '.pom'" as="xs:string"/>
+
+                <xsl:next-match>
+                    <xsl:with-param name="group-id" select="$group-id"/>
+                    <xsl:with-param name="artifact-id" select="$artifact-id"/>
+                    <xsl:with-param name="version" select="$version"/>
+                    <xsl:with-param name="pom-relative-url" select="$pom-relative-url"/>
+                    <xsl:with-param name="mvn-base-uri" select="$snapshot-base-uri"/>
+                </xsl:next-match>
+            </xsl:if>
+
+            <xsl:catch errors="err:FORG0002">
+                <xsl:message>Could not cast '<xsl:value-of select="$maven-metadata-relative-url"/>' to URL</xsl:message>
+
+                <xsl:apply-imports/>
+            </xsl:catch>
+        </xsl:try>
+    </xsl:template>
+
+    <!-- we need version to build the .pom URL -->
+    <xsl:template match="pom:dependency[pom:groupId][pom:artifactId][pom:version]">
+        <xsl:param name="group-id" select="if (pom:groupId = '${project.groupId}' and /pom:project/pom:groupId) then replace(pom:groupId, '\$\{project\.groupId\}', /pom:project/pom:groupId) else pom:groupId" as="xs:string?"/>
+        <xsl:param name="artifact-id" select="if (pom:artifactId = '${project.artifactId}' and /pom:project/pom:artifactId) then replace(pom:artifactId, '\$\{project\.artifactId\}', /pom:project/pom:artifactId) else pom:artifactId" as="xs:string?"/>
+        <xsl:param name="version" select="if (pom:version = '${project.version}' and /pom:project/pom:version) then replace(pom:version, '\$\{project\.version\}', /pom:project/pom:version) else pom:version" as="xs:string?"/>
+        <xsl:param name="mvn-id" select="$group-id || ':' || $artifact-id || ':' || $version" as="xs:string"/>
+        <xsl:param name="traversed-ids" as="xs:string*" tunnel="yes"/>
+        <xsl:param name="level" select="0" as="xs:integer" tunnel="yes"/>
+        <xsl:param name="pom-relative-url" select="translate($group-id, '.', '/') || '/' || $artifact-id || '/' || $version || '/' || $artifact-id || '-' || $version || '.pom'" as="xs:string"/>
+        <xsl:param name="mvn-base-uri" select="$mvn-base-uri" as="xs:string"/>
 
         <xsl:message>
 Dependency level: <xsl:value-of select="$level"/>
@@ -77,8 +120,8 @@ Artifact: <xsl:value-of select="$mvn-id"/>
 
         <xsl:try>
             <xsl:variable name="pom-url" select="resolve-uri($pom-relative-url, $mvn-base-uri)" as="xs:anyURI"/>
-            <xsl:variable name="artifact-uri" select="xs:anyURI('mvn:' || pom:groupId || ':' || pom:artifactId)" as="xs:anyURI"/>
-            <xsl:variable name="version-uri" select="xs:anyURI('mvn:' || pom:groupId || ':' || pom:artifactId || ':' || pom:version)" as="xs:anyURI"/>
+            <xsl:variable name="artifact-uri" select="xs:anyURI('mvn:' || $group-id || ':' || $artifact-id)" as="xs:anyURI"/>
+            <xsl:variable name="version-uri" select="xs:anyURI('mvn:' || $group-id || ':' || $artifact-id || ':' || $version)" as="xs:anyURI"/>
 
 <xsl:message>POM: <xsl:value-of select="$pom-url"/>
 Artifact URI: <xsl:value-of select="$artifact-uri"/>
@@ -109,12 +152,14 @@ Version URI: <xsl:value-of select="$version-uri"/>
                     </deps:build-requirement>
                 </xsl:when>
                 <xsl:otherwise>
-                    <xsl:next-match/>
+                    <xsl:apply-imports/>
                 </xsl:otherwise>
             </xsl:choose>
 
             <xsl:catch errors="err:FORG0002">
-                <xsl:message>Could not cast '<xsl:value-of select="."/>' to URL</xsl:message>
+                <xsl:message>Could not cast '<xsl:value-of select="$pom-relative-url"/>' to URL</xsl:message>
+
+                <xsl:apply-imports/>
             </xsl:catch>
         </xsl:try>
     </xsl:template>
