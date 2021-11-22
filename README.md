@@ -38,6 +38,7 @@ The only POM expressions that will be recognized and replaced with a value are:
 * `<groupId>${project.groupId}</groupId>`
 * `<pom:artifactId>${project.artifactId}</pom:artifactId>`
 * `<version>${project.version}</version>`
+
 There is currently no support for Maven features such as parent POMs etc.
 
 Any other expressions will lead to invalid Maven POM URLs and therefore will not be dereferenced and the dependency metadata will not be embedded.
