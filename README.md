@@ -43,7 +43,7 @@ There is currently no support for Maven features such as parent POMs etc.
 
 Any other expressions will lead to invalid Maven POM URLs and therefore will not be dereferenced and the dependency metadata will not be embedded.
 
-`SNAPSHOT` versions are supported, their POMs use looked up in a different Maven repository (see [`snapshot-base-uri`](#snapshot-base-uri)).
+`SNAPSHOT` versions are supported, their POMs are looked up in a different Maven repository (see [`snapshot-base-uri`](#snapshot-base-uri)).
 
 Cyclical dependencies are broken by not embedding any occurrence other than the first.
 
