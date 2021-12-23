@@ -56,3 +56,39 @@ A non-existing `mvn:` URI scheme is used to identify and reconcile artifacts and
 Property `doap:releaseOf` is not defined by DOAP but is used as the inverse of `doap:release`.
 
 [Sample RDF output](sample/doap.rdf) generated from [LinkedDataHub's POM](https://github.com/AtomGraph/LinkedDataHub/blob/master/pom.xml) using `max-depth=1`.
+
+## Use cases
+
+### Software Bill of Materials
+
+[Software Bill of Materials](https://en.wikipedia.org/wiki/Software_bill_of_materials) is useful when the projects transitive dependencies need to be listed, for example to check for the [Log4Shell](https://en.wikipedia.org/wiki/Log4Shell) vulnerability.
+
+1. Set up [Apache Jena CLI](https://jena.apache.org/documentation/tools/index.html)
+2. Use POM2RDF to generate the `doap.rdf` file
+3. Create `sbom.rq` with this SPARQL query string:
+
+```sparql
+PREFIX doap: <http://usefulinc.com/ns/doap#>
+PREFIX deps: <https://ontologi.es/doap-deps#>
+
+SELECT DISTINCT ?project ?version ?subProject
+{
+
+    ?project deps:build-requirement/deps:on ?version .
+    OPTIONAL
+    {
+        ?version doap:releaseOf ?subProject .
+    }
+}
+ORDER BY ?project ?version
+```
+
+Generate the SBoM table by executing Jena's `sparql` command:
+```
+sparql --quiet --data=doap.rdf --query sbom.rq
+```
+
+To find Log4J usages, add `grep`:
+```
+sparql --quiet --data=doap.rdf --query sbom.rq | grep log4j
+```
