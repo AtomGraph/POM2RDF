@@ -73,7 +73,6 @@ PREFIX deps: <https://ontologi.es/doap-deps#>
 
 SELECT DISTINCT ?project ?version ?subProject
 {
-
     ?project deps:build-requirement/deps:on ?version .
     OPTIONAL
     {
